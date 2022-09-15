@@ -12,7 +12,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "locations")
 public class Location {
@@ -22,8 +21,8 @@ public class Location {
     @Column(name = "id")
     private Long id;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
     @Column()
@@ -55,5 +54,18 @@ public class Location {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

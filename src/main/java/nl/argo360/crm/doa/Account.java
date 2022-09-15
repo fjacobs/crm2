@@ -12,9 +12,7 @@ import java.util.Set;
 
 @Builder
 @Entity
-@Getter
-@Setter
-@ToString
+@Getter @Setter
 @Table(name = "accounts")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +20,6 @@ public class Account {
 
     @Id
     @Column(name = "company_name")
-    @EqualsAndHashCode.Include
     private String companyName;
 
     @ColumnDefault("0")
@@ -35,19 +32,16 @@ public class Account {
     @Column()
     private String owner;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ToString.Exclude
     private Set<Contact> contacts;
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ToString.Exclude
     private Set<Location> locations;
 
     @OneToMany(
             mappedBy = "account",
             cascade = CascadeType.ALL
     )
-    @ToString.Exclude
     private Set<Lot> lots;
 
     @Override
@@ -64,4 +58,15 @@ public class Account {
     }
 
     public enum ACCOUNT_TYPE {ALL, VENDOR, DOWNSTREAM, UPSTREAM}
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "companyName='" + companyName + '\'' +
+                ", accountType=" + accountType +
+                ", phone='" + phone + '\'' +
+                ", website='" + website + '\'' +
+                ", owner='" + owner + '\'' +
+                '}';
+    }
 }

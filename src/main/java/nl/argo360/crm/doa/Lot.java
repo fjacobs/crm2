@@ -14,19 +14,19 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
 @Table(name = "lots")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Lot {
 
-    @EqualsAndHashCode.Include
     @Id
     @Column(name = "lot_id", nullable = false)
     private Integer id;
 
+    private String poNumber;
+    private String customerLotRef1;
+
     @JsonBackReference
-    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
@@ -47,5 +47,12 @@ public class Lot {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Lot{" +
+                "id=" + id +
+                '}';
     }
 }

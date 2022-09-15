@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @Table(name = "assets")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,19 +19,49 @@ public class Asset {
     @Id
     @Column(name = "asset_id", nullable = false)
     private Integer id;
-
     @JsonBackReference
-    @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Lot lot;
-
-    private Status status;
+    private String status;
     private String clazz;
+
     private String serial;
     private String mfg;
     private String model;
-
     @Column(name = "part_number")
     private String partNumber;
     private String grade;
+
+    private String channel;
+
+    @Column(name = "upgrade_description")
+    private String upgradeDescription;
+    @Column(name = "audit_description")
+    private String auditDescription;
+    @Column(name = "functional_description")
+    private String functionalDescription;
+    @Column(name = "cosmetics_description")
+    private String cosmeticsDescription;
+
+    @Column(name = "on_shelf")
+    private String onShelf;
+    private String pallet;
+    @Column(name = "warehouse")
+    private String wareHouse;
+
+    private String location;
+
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "id=" + id +
+                ", status=" + status +
+                ", clazz='" + clazz + '\'' +
+                ", mfg='" + mfg + '\'' +
+                ", model='" + model + '\'' +
+                ", partNumber='" + partNumber + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
 }
